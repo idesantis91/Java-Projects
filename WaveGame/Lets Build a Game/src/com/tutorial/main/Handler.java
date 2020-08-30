@@ -40,6 +40,7 @@ public class Handler {
 			
 			if(tempObject.getID() == ID.Player) {
 				object.clear();
+				if(Game.gameState != Game.STATE.End)
 				addObject(new Player((int)tempObject.getX(), (int)tempObject.getY(), ID.Player, this));
 			}
 		}
