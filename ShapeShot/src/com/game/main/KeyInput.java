@@ -37,8 +37,18 @@ public class KeyInput extends KeyAdapter{
 				if(key == KeyEvent.VK_S) {tempObject.setVelY(5); keyDown[1] = true;}
 				if(key == KeyEvent.VK_D) {tempObject.setVelX(5); keyDown[2] = true;} 
 				if(key == KeyEvent.VK_A) {tempObject.setVelX(-5); keyDown[3] = true;}
-				if(key == KeyEvent.VK_SPACE) {handler.shootPlayerOne();}
-				if(key == KeyEvent.VK_Q) {handler.playerOneShield();}
+				if(key == KeyEvent.VK_SPACE) {
+					if(HUD.ENERGY > 0) {
+					handler.shootPlayerOne();
+					}
+				}
+				
+				if(key == KeyEvent.VK_Q) {
+					if(HUD.SHIELD > 0) {
+					handler.playerOneShield();
+					HUD.SHIELD = HUD.SHIELD - 34;
+					}
+				}
 			}
 			
 				//Key Events for PlayerDos
@@ -48,8 +58,17 @@ public class KeyInput extends KeyAdapter{
 					if(key == KeyEvent.VK_DOWN) {tempObject.setVelY(5); keyDown[1] = true;}
 					if(key == KeyEvent.VK_RIGHT) {tempObject.setVelX(5); keyDown[2] = true;} 
 					if(key == KeyEvent.VK_LEFT) {tempObject.setVelX(-5); keyDown[3] = true;}
-					if(key == KeyEvent.VK_NUMPAD0) {handler.shootPlayerDos();}
-					if(key == KeyEvent.VK_NUMPAD1) {handler.playerTwoShield();}
+					if(key == KeyEvent.VK_NUMPAD0) {
+						if(HUD.ENERGYDOS > 0) {
+						handler.shootPlayerDos();
+						}
+					}
+					if(key == KeyEvent.VK_NUMPAD1) {
+						if(HUD.SHIELDDOS > 0) {
+							handler.playerTwoShield();
+							HUD.SHIELDDOS = HUD.SHIELDDOS - 34;
+						}
+					}
 				}
 		}
 		

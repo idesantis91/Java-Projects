@@ -126,6 +126,8 @@ public class Game extends Canvas implements Runnable{
 						HUD.HEALTHDOS = 100;
 						HUD.ENERGY = 100;
 						HUD.ENERGYDOS = 100;
+						HUD.SHIELD = 100;
+						HUD.SHIELDDOS = 100;
 						gameState = STATE.End;
 						handler.clearEnemys();	
 				}

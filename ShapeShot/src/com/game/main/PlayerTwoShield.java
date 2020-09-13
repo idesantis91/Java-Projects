@@ -15,11 +15,10 @@ public class PlayerTwoShield extends GameObject{
 		
 		 velX = 5;
 		 velY = 5;
-		 shieldCollisionDos();
 	}
 
 	public void tick() {
-
+		shieldCollisionDos();
 		}
 		
 	public void render(Graphics g) {
@@ -29,10 +28,10 @@ public class PlayerTwoShield extends GameObject{
 	
 	private void shieldCollisionDos() {
 		//Looping through all the objects in the game
-		for(int i = 0; i < handler.object.size(); i++) {
+		for(int j =0; j < handler.object.size(); j++) {
 			
 			//Creating a tempOject that gets each instance of the for loop
-			GameObject tempObject = handler.object.get(i);
+			GameObject tempObject = handler.object.get(j);
 			
 			//if the object is the enemy run this code block 
 			if(tempObject.getID() == ID.PlayerOneBullet)//tempObject is now BasicEnemey {

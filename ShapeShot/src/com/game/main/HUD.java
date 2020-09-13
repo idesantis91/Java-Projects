@@ -10,6 +10,9 @@ public class HUD {
 	public static float HEALTHDOS = 100;
 	public static float ENERGY = 100;
 	public static float ENERGYDOS = 100;
+	public static float SHIELD = 100;
+	public static float SHIELDDOS = 100;
+
 	private  float time = 5;
 	private  float minutes = time % 60;
 	private  float seconds = time / 60;
@@ -17,12 +20,8 @@ public class HUD {
 	private int greenValue = 255;
 	private int greenValueDos = 255;
 
-	
 	private int score = 0;
 	private int level = 1;
-	private static float health = HEALTH;
-	private static float healthdos = HEALTHDOS;
-
 
 	public void tick() {
 		
@@ -30,6 +29,9 @@ public class HUD {
 		HEALTHDOS = Game.clamp(HEALTHDOS, 0, 100);
 		ENERGY = Game.clamp(ENERGY, 0, 100);
 		ENERGYDOS = Game.clamp(ENERGYDOS, 0, 100);
+		SHIELD = Game.clamp(SHIELD, 0, 100);
+		SHIELDDOS = Game.clamp(SHIELDDOS, 0, 100);
+
 		//time -=1;
 		minutes = time % 60;
 		seconds = time / 60;
@@ -80,12 +82,44 @@ public class HUD {
 		//EnergyBar for PlayerDos
 		g.setColor(Color.gray);
 		g.fillRect(510, 50, 100, 15);
-		//Health that player has
+		//Health that PlayerDos has
 		g.setColor(Color.blue);
 		g.fillRect((int)510, (int)50, (int)ENERGYDOS, 15);
 		//Border for health bar
 		g.setColor(Color.white);
 		g.drawRect(510, 50, 100, 15);
+		
+		//ShieldBar for PlayerDos
+		g.setColor(Color.gray);
+		g.fillRect(510, 70, 100, 15);
+		//ShieldBar that PlayerDos has
+		g.setColor(Color.orange);
+		g.fillRect((int)510, (int)70, (int)SHIELDDOS, 15);
+		//Border for Shield Bar
+		g.setColor(Color.white);
+		g.drawRect(510, 70, 100, 15);
+		g.setColor(Color.black);
+		g.drawRect(476, 70, 100, 15);
+		g.setColor(Color.black);
+		g.drawRect(442, 70, 100, 15);
+		g.setColor(Color.white);
+		g.drawRect(510, 70, 100, 15);
+		
+		//ShieldBar for PlayerOne
+		g.setColor(Color.gray);
+		g.fillRect(15, 70, 100, 15);
+		//ShieldBar that PlayerOne has
+		g.setColor(Color.white);
+		g.fillRect((int)15, (int)70, (int)SHIELD, 15);
+		//Border for Shield Bar
+		g.setColor(Color.white);
+		g.drawRect(15, 70, 100, 15);
+		g.setColor(Color.black);
+		g.drawRect(47, 70, 100, 15);
+		g.setColor(Color.black);
+		g.drawRect(81, 70, 100, 15);
+		g.setColor(Color.white);
+		g.drawRect(15, 70, 100, 15);
 	}
 	
 	public void setScore(int score) {
