@@ -4,37 +4,22 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-public class BasicEnemy extends GameObject{
+public class EnergyRefill extends GameObject{
 
 	private Handler handler;
 	
-	public BasicEnemy(int x, int y, ID id, Handler handler) {
+	public EnergyRefill(int x, int y, ID id, Handler handler) {
 		super(x, y, id);
-		
 		this.handler = handler;
-		
-		 velX = 2;
-		 velY = 0;
 	}
 
 	public void tick() {
-		x -= velX;
-		y += velY; 
-		
-		if(x <= 0) {
-			handler.removeObject(this);
-		}
-		
-		if(y >= Game.HEIGHT) {
-			handler.removeObject(this);
-		}
 		collision();
-		handler.addObject(new Trail(x, y, ID.Trail, Color.red, 16, 16, 0.1f, handler));
 	}
 	
 	public void render(Graphics g) {
-		g.setColor(Color.red);
-		g.fillRect((int)x, (int)y, 16, 16);
+		g.setColor(Color.blue);
+		g.fillRect((int)x, (int)y, 8, 32);
 	}
 	
 	private void collision() {
@@ -45,16 +30,16 @@ public class BasicEnemy extends GameObject{
 			GameObject tempObject = handler.object.get(i);
 			
 			//if the object is the enemy run this code block 
-			if(tempObject.getID() == ID.PlayerOneBullet || tempObject.getID() == ID.PlayerOneShield)//tempObject is now BasicEnemey {
+			if(tempObject.getID() == ID.Player){
 				//collision code
 				if(getBounds().intersects(tempObject.getBounds())) {
-					handler.removeObject(this);
-					handler.removeObject(tempObject);
+					HUD.ENERGY +=1;
 				}
-		  }
+			}
+		}
 	}
 
 	public Rectangle getBounds() {
-			return new Rectangle((int)x, (int)y, 16, 16);
+			return new Rectangle((int)x, (int)y, 8, 32);
 		}
 }

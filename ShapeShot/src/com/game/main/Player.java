@@ -6,8 +6,11 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
-public class Player extends GameObject{
+import com.game.main.Game.STATE;
 
+public class Player extends GameObject{
+	
+	Game game;
 	Random r = new Random();
 	static Handler handler;
 	public Player(int x, int y, ID id, Handler handler) {
@@ -22,11 +25,18 @@ public class Player extends GameObject{
 			x += velX;
 			y += velY;
 			
-		    //Make sure Player stays in window
-			x = Game.clamp(x, 0, Game.WIDTH/2 -48);
-			y = Game.clamp(y, 0, Game.HEIGHT -70);
+			if(game.gameState == STATE.MultiplayerGame) {
+				//Make sure Player stays in window
+				x = Game.clamp(x, 0, Game.WIDTH/2 -48);
+				y = Game.clamp(y, 0, Game.HEIGHT -70);
+			}
 			
-			//Call collision Method
+			if(game.gameState == STATE.SingleplayerGame) {
+			    //Make sure Player stays in window
+				x = Game.clamp(x, 0, Game.WIDTH -48);
+				y = Game.clamp(y, 0, Game.HEIGHT -70);
+				}
+			//Call collision Methods
 			collision();
 			
 			handler.addObject(new Trail(x, y, ID.Trail, Color.white, 32, 32, 0.1f, handler));
@@ -40,7 +50,7 @@ public class Player extends GameObject{
 			GameObject tempObject = handler.object.get(i);
 			
 			//if the object is the enemy run this code block 
-			if(tempObject.getID() == ID.PlayerTwoBullet)//tempObject is now BasicEnemey {
+			if(tempObject.getID() == ID.PlayerTwoBullet || tempObject.getID() == ID.BasicEnemy || tempObject.getID() == ID.HardEnemy || tempObject.getID() == ID.SmartEnemy)//tempObject is now BasicEnemey {
 				//collision code
 				if(getBounds().intersects(tempObject.getBounds())) {
 					HUD.HEALTH -=2;

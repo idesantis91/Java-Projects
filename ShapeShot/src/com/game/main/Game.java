@@ -37,7 +37,8 @@ public class Game extends Canvas implements Runnable{
 			Select,
 			Help,
 			End,
-			Game;
+			SingleplayerGame,
+			MultiplayerGame;
 		}
 		
 		//Cast state that holds the enum values
@@ -57,7 +58,7 @@ public class Game extends Canvas implements Runnable{
 			new Window(WIDTH, HEIGHT, "SHAPE SHOT", this);
 			r = new Random();
 			spawner = new Spawner(handler, hud, this);
-				if(gameState == STATE.Game) {
+				if(gameState == STATE.MultiplayerGame) {
 				handler.addObject(new Player(30, 100, ID.Player, handler));
 				handler.addObject(new PlayerDos(400, 200, ID.PlayerDos, handler));
 		  }else {
@@ -116,7 +117,7 @@ public class Game extends Canvas implements Runnable{
 		}
 		
 		private void tick(){			
-			if(gameState == STATE.Game) {
+			if(gameState == STATE.MultiplayerGame) {
 				if(!paused) {
 					handler.tick();
 					hud.tick();
@@ -128,6 +129,23 @@ public class Game extends Canvas implements Runnable{
 						HUD.ENERGYDOS = 100;
 						HUD.SHIELD = 100;
 						HUD.SHIELDDOS = 100;
+						gameState = STATE.End;
+						handler.clearEnemys();	
+				}
+			}else if(gameState == STATE.Menu || gameState == STATE.End || gameState == STATE.Select) {
+				menu.tick();
+				handler.tick();
+			}
+		} 
+			if(gameState == STATE.SingleplayerGame) {
+				if(!paused) {
+					handler.tick();
+					hud.tick();
+					spawner.tick();
+					if(HUD.HEALTH <= 0){
+						HUD.HEALTH = 100;
+						HUD.ENERGY = 100;
+						HUD.SHIELD = 100;
 						gameState = STATE.End;
 						handler.clearEnemys();	
 				}
@@ -156,7 +174,7 @@ public class Game extends Canvas implements Runnable{
 				g.drawString("PAUSED", 100, 100);
 			}
 			
-			if(gameState == STATE.Game) {
+			if(gameState == STATE.MultiplayerGame || gameState == STATE.SingleplayerGame) {
 			//Renders the handler class and hud class
 			hud.render(g);
 			}else if(gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.End || gameState == STATE.Select) {

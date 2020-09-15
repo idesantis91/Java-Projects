@@ -4,37 +4,22 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-public class BasicEnemy extends GameObject{
+public class SpaceShuttle extends GameObject{
 
 	private Handler handler;
 	
-	public BasicEnemy(int x, int y, ID id, Handler handler) {
+	public SpaceShuttle(int x, int y, ID id, Handler handler) {
 		super(x, y, id);
-		
 		this.handler = handler;
-		
-		 velX = 2;
-		 velY = 0;
 	}
 
 	public void tick() {
-		x -= velX;
-		y += velY; 
-		
-		if(x <= 0) {
-			handler.removeObject(this);
-		}
-		
-		if(y >= Game.HEIGHT) {
-			handler.removeObject(this);
-		}
 		collision();
-		handler.addObject(new Trail(x, y, ID.Trail, Color.red, 16, 16, 0.1f, handler));
 	}
 	
 	public void render(Graphics g) {
-		g.setColor(Color.red);
-		g.fillRect((int)x, (int)y, 16, 16);
+		g.setColor(Color.white);
+		g.fillRect((int)x, (int)y, 30, 320);
 	}
 	
 	private void collision() {
@@ -45,16 +30,18 @@ public class BasicEnemy extends GameObject{
 			GameObject tempObject = handler.object.get(i);
 			
 			//if the object is the enemy run this code block 
-			if(tempObject.getID() == ID.PlayerOneBullet || tempObject.getID() == ID.PlayerOneShield)//tempObject is now BasicEnemey {
+			if(tempObject.getID() == ID.BasicEnemy || tempObject.getID() == ID.HardEnemy || tempObject.getID() == ID.SmartEnemy) {
 				//collision code
 				if(getBounds().intersects(tempObject.getBounds())) {
-					handler.removeObject(this);
 					handler.removeObject(tempObject);
+					if(tempObject.getID() == ID.BasicEnemy){HUD.HEALTH-=2;}
+					else if(tempObject.getID() == ID.HardEnemy){HUD.HEALTH-=6;}
+					else if(tempObject.getID() == ID.SmartEnemy){HUD.HEALTH-=10;}
 				}
-		  }
+			}
+		}
 	}
-
 	public Rectangle getBounds() {
-			return new Rectangle((int)x, (int)y, 16, 16);
+			return new Rectangle((int)x, (int)y, 30, 320);
 		}
 }

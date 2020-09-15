@@ -50,21 +50,22 @@ public class Menu extends MouseAdapter{
 		}
 	}
 		if(game.gameState == STATE.Select) {
-			//Normal Button
+			//Multiplayer Button
 			if(mouseOver(mx, my, 210, 150, 200, 64)) {
-				game.gameState = STATE.Game;
+				game.gameState = STATE.MultiplayerGame;
 				handler.clearEnemys();
 				handler.addObject(new Player(30, 200, ID.Player, handler));
 				handler.addObject(new PlayerDos(565, 200, ID.PlayerDos, handler));
-				game.diff = 0;
 			}
 			
-			//Hard Button
+			//Single Player Button
 			if(mouseOver(mx, my, 210, 250, 200, 64)) {
-				game.gameState = STATE.Game;
+				game.gameState = STATE.SingleplayerGame;
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
-				handler.clearEnemys();
-				handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH-50), r.nextInt(Game.HEIGHT-50), ID.BasicEnemy, handler));
+				handler.addObject(new SpaceShuttle(0, 124, ID.SpaceShuttle, handler));
+				handler.addObject(new EnergyRefill(0, 180, ID.EnergyRefill, handler));
+				handler.addObject(new ShieldRefill(0, 300, ID.ShieldRefill, handler));
+				//handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH-50), r.nextInt(Game.HEIGHT-50), ID.BasicEnemy, handler));
 				game.diff = 1;
 			  } 
 			
@@ -194,8 +195,8 @@ public class Menu extends MouseAdapter{
 			g.drawRect(210, 150, 200, 64);
 			g.drawString("Multiplayer", 235, 190);
 			
-			//g.drawRect(210, 250, 200, 64);
-			//g.drawString("Single Player", 275, 290);
+			g.drawRect(210, 250, 200, 64);
+			g.drawString("Single Player", 217, 290);
 
 			g.drawRect(210, 350, 200, 64);
 			g.drawString("Back", 270, 390);

@@ -15,6 +15,9 @@ public enum ID {
 		HardEnemy(),
 		EnemyBoss(),
 		MenuParticle(),
+		SpaceShuttle(),
+		EnergyRefill(),
+		ShieldRefill(),
 		Trail();
 		
 	}

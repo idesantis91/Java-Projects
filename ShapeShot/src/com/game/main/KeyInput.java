@@ -73,7 +73,7 @@ public class KeyInput extends KeyAdapter{
 		}
 		
 		if(key == KeyEvent.VK_P) {
-			if(game.gameState == STATE.Game) {
+			if(game.gameState == STATE.MultiplayerGame || game.gameState == STATE.SingleplayerGame) {
 				
 			}
 			if(Game.paused) {
